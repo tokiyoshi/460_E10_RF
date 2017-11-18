@@ -1,0 +1,35 @@
+\usepackage{fancyhdr} %for headers
+\usepackage[margin=1.0in]{geometry} % margin size (can change units)
+\usepackage{setspace} % setting spaces in title
+
+\usepackage{cite} % for references
+
+\usepackage{graphicx}
+
+\usepackage{floatrow} % to add side by side tables with figures
+
+\usepackage{booktabs} % adding in table support
+
+\renewcommand{\arraystretch}{1.2} % make tables a bit larger (vertically)
+\setlength{\tabcolsep}{10pt}	  % make the table width larger
+\newdimen\heavyrulewidth
+\newdimen\lightrulewidth
+\heavyrulewidth=.12em  %make the top rule of a table heavy
+\lightrulewidth=.05em  %and the line below the titles a bit lighter
+
+\pagenumbering{arabic}
+
+% Table float box with bottom caption, box width adjusted to content
+\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+
+\usepackage[pdftex]{hyperref} %to add hyperlinks to the referenced pages for easier navigation
+
+\hypersetup{
+	colorlinks,
+	allcolors=black
+}
+
+\headheight = 18pt
+
+\widowpenalties 1 10000
+\raggedbottom

@@ -1,0 +1,33 @@
+\documentclass[12pt]{article}
+
+\include{config/config}
+\include{report_details}
+\input{config/titlepage_config}
+
+\begin{document}
+
+% % % %  You should not need to edit this page??    % % % %
+
+
+% % % % % % % % 	Title/Abstract     % % % % % % % % % %
+\include{config/titlepage}
+
+% % % % % % % % 	Body Sections   % % % % % % % % % %
+\section{Voltage Controlled Oscillator}
+\input{Part_A}
+\newpage
+\section{Cavity Coupling and Quality Factor}
+\input{Part_B}
+\newpage
+\section{Cavity Reflection Coefficient Phase}
+\input{Part_C}
+\newpage
+\section{Stabilization of the VCO to the Cavity}
+\input{Part_D}
+% % % % % % % % % References % % % % % % % % % % 
+\newpage
+\nocite{*}
+\bibliographystyle{siam}
+\bibliography{references}
+
+\end{document}
