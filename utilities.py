@@ -5,6 +5,7 @@ import warnings
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.ticker import AutoMinorLocator
 
 import numpy as np
 
@@ -79,12 +80,15 @@ def read_csv(csv_path):
 def boot_plots(x, y_s, labels, y_axis_label, line_width = None, x_range = None, y_range = None, colours = None):
     colours_all = ['green', 'red', 'blue', 'black']
     if line_width is None:
-        line_width = [0.5, 0.5, 0.5, 0.5]
+        line_width = [0.3, 0.3, 0.3, 0.3]
     if colours is None:
         colours = colours_all[:len(y_s)]
     if x_range is None:
         x_range = [np.min(x), np.max(x)]
     legend_entries = []
+    plt.style.use('bmh')  # You can use different styles in matplotlib Huh
+    plt.figure(figsize=(7, 4), dpi=300)
+    plt.tight_layout()
     for y, label, colour, lw in zip(y_s, labels, colours, line_width):
         plt.plot(x, y, color=colour, lw=lw)
         legend_entries.append(mpatches.Patch(color=colour, label=label))
@@ -96,4 +100,38 @@ def boot_plots(x, y_s, labels, y_axis_label, line_width = None, x_range = None, 
     plt.xlabel(y_axis_label)
     plt.ylabel('Volts(V)')
     plt.grid()
+
+    axes.xaxis.set_minor_locator(AutoMinorLocator())
+    axes.grid(which='minor', alpha=0.2)
+    axes.grid(which='major')
+
     return axes
+
+
+def point_labeller(axes, type, freq, voltage):
+    """
+    Just a tool to label the max ans min as I want them on the actual graphs
+    """
+    if type == 'min':
+        min_voltage, min_freq = voltage.min(), freq[np.argmin(voltage)]
+        xy_coords = (min_freq, min_voltage)
+        text = 'Minimum of %.3f V \nat %.2f MHz' % (min_voltage, min_freq)
+        text_coords = (250, 200)
+    elif type == 'max':
+        max_voltage, max_freq = voltage.max(), freq[np.argmax(voltage)]
+        xy_coords = (max_freq, max_voltage)
+        text = 'Maximum of %.2f V \nat %.2f MHz' % (max_voltage, max_freq)
+        text_coords = (150, -200)
+    axes.annotate(text,
+                  xy=xy_coords, xycoords='data',
+                  xytext=text_coords, textcoords='offset pixels',
+                  arrowprops=dict(facecolor='black', shrink=0.05, alpha=.5),
+                  horizontalalignment='left', verticalalignment='bottom')
+
+
+def find_nearest(array, value):
+    """
+    Find the index of the point which is closest to value for FWHM calculations
+    """
+    idx = (np.abs(array-value)).argmin()
+    return idx
