@@ -1,4 +1,5 @@
 import pandas
+import shutil
 import pathlib
 import warnings
 
@@ -38,6 +39,18 @@ def read_folder(scan_number):
     return time, channel_1_data, channel_2_data, channel_1_props, channel_2_props
 
 
+def wipe_folder(path):
+    """"
+    Just deletes the folder with all subdirectories and then remakes it to wipe it
+    Args:
+        path: The path to the folder you wish to remove
+    Return:
+        None
+    """
+    shutil.rmtree(path, ignore_errors=True)  # Avoiding errors if folder already is gone
+    path.mkdir(parents=True)
+
+
 def read_csv(csv_path):
     """
     Args:
@@ -63,8 +76,8 @@ def read_csv(csv_path):
         return None, None, None
 
 
-def boot_plots(x, y_s, labels, line_width = None, x_range = None, y_range = None, colours = None):
-    colours_all = ['green', 'blue', 'red', 'black']
+def boot_plots(x, y_s, labels, y_axis_label, line_width = None, x_range = None, y_range = None, colours = None):
+    colours_all = ['green', 'red', 'blue', 'black']
     if line_width is None:
         line_width = [0.5, 0.5, 0.5, 0.5]
     if colours is None:
@@ -80,7 +93,7 @@ def boot_plots(x, y_s, labels, line_width = None, x_range = None, y_range = None
     axes.set_xlim(x_range)
     if y_range is not None:
         axes.set_ylim(y_range)
-    plt.xlabel('Frequency(MHz)')
+    plt.xlabel(y_axis_label)
     plt.ylabel('Volts(V)')
     plt.grid()
     return axes
