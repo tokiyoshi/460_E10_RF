@@ -22,4 +22,4 @@ def linear_volt2freq(voltage):
     x = range(len(voltage))
     coeff = poly.polyfit(x, voltage, 1)
     lin_voltage = coeff[0] + x * coeff[1]
-    return volt2freq(lin_voltage)
+    return volt2freq(lin_voltage), lin_voltage

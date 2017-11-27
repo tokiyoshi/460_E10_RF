@@ -15,8 +15,9 @@ for scope, title in zip([0, 1, 2, 3, 4], ['Attempt1', 'Critical Coupling Conditi
     if channel_2_data is None:
         boot_plots(time, [channel_1_data], ['CH1'], 'Time(s)')
     else:
-        ch1_freq = linear_volt2freq(channel_1_data)
-        boot_plots(time, [channel_1_data, channel_2_data], ['CH1', 'CH2'], 'Time(s)')
+        ch1_freq, ch1_linvoltage = linear_volt2freq(channel_1_data)
+        boot_plots(time, [channel_1_data, channel_2_data, ch1_linvoltage], ['CH1', 'CH2', 'CH1 fit'], 'Time(s)')
+        plt.title('%s : Raw Data' % title)
         plt.savefig(str(graph_dir.joinpath('scope_%s_raw.png' % scope)))
         plt.close()
         axes = boot_plots(ch1_freq, [channel_2_data], ['Cavity Response'], 'Frequency(MHz)', y_range=[0,1.1])
@@ -27,7 +28,7 @@ for scope, title in zip([0, 1, 2, 3, 4], ['Attempt1', 'Critical Coupling Conditi
     plt.close()
 
 # Scopes where we wish to just see both channels against time
-for scope, title in zip([5, 6], ['Transmission', 'Maximal Transmission']):
+for scope, title in zip([5, 6], ['Weak (20%) Transmission', 'Maximal Transmission']):
     time, channel_1_data, channel_2_data, channel_1_props, channel_2_props = read_folder(scope)
     boot_plots(time, [channel_1_data, channel_2_data], ['CH1', 'CH2'], 'Time(s)')
     plt.title(title)
@@ -37,7 +38,11 @@ for scope, title in zip([5, 6], ['Transmission', 'Maximal Transmission']):
 # Scopes with CH2 as freq ramp
 for scope, title in zip([8, 10, 11, 14], ['Maximal Transmission (2Hz)', 'Maximal Transmission (10Hz)', 'Maximal Coupling (10Hz)', 'Anti-Symmetric Cavity Reflection']):
     time, channel_1_data, channel_2_data, channel_1_props, channel_2_props = read_folder(scope)
-    ch2_freq = linear_volt2freq(channel_2_data)
+    ch2_freq, ch2_linvoltage = linear_volt2freq(channel_2_data)
+    boot_plots(time, [channel_1_data, channel_2_data, ch2_linvoltage], ['CH1', 'CH2', 'CH2 fit'], 'Time(s)')
+    plt.title('%s : Raw Data' % title)
+    plt.savefig(str(graph_dir.joinpath('scope_%s_raw.png' % scope)))
+    plt.close()
     axes = boot_plots(ch2_freq, [channel_1_data], ['Cavity Response'], 'Frequency(MHz)')
     if scope in (8, 10):
         point_labeller(axes, 'max', ch2_freq, channel_1_data)
@@ -49,7 +54,7 @@ for scope, title in zip([8, 10, 11, 14], ['Maximal Transmission (2Hz)', 'Maximal
         FEHM_low, FWHM_high = ch2_freq[FWHM_index_low], ch2_freq[FWHM_index_high]
 
         FWHM = abs(FWHM_high - FEHM_low)
-        title = '%s : with FWHM of %.2f' % (title, FWHM)
+        title = '%s : FWHM = %.2f MHz' % (title, FWHM)
     if scope == 11:
         point_labeller(axes, 'min', ch2_freq, channel_1_data)
     plt.title(title)

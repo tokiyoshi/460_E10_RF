@@ -78,9 +78,9 @@ def read_csv(csv_path):
 
 
 def boot_plots(x, y_s, labels, y_axis_label, line_width = None, x_range = None, y_range = None, colours = None):
-    colours_all = ['green', 'red', 'blue', 'black']
+    colours_all = ['green', 'red', 'black', 'blue']
     if line_width is None:
-        line_width = [0.3, 0.3, 0.3, 0.3]
+        line_width = [0.3, 0.3, 0.7, 0.3]
     if colours is None:
         colours = colours_all[:len(y_s)]
     if x_range is None:
