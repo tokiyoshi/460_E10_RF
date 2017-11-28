@@ -46,6 +46,14 @@ for scope, title in zip([0, 1, 2, 3, 4], ['Attempt1', 'Critical Coupling Conditi
     plt.savefig(str(graph_dir.joinpath('scope_%s.png' % scope)))
     plt.close()
 
+# Scopes where we wish to just see both channels against time
+for scope, title in zip([5, 6], ['Weak (20%) Transmission', 'Maximal Transmission']):
+    time, channel_1_data, channel_2_data, channel_1_props, channel_2_props = read_folder(scope)
+    boot_plots(time, [channel_1_data, channel_2_data], ['CH1', 'CH2'], 'Time(s)')
+    plt.title(title)
+    plt.savefig(str(graph_dir.joinpath('scope_%s.png' % scope)))
+    plt.close()
+
 # Scopes with CH2 as freq ramp
 for scope, title in zip([10, 8, 11, 14], ['Maximal Transmission (10Hz)', 'Maximal Transmission (2Hz)', 'Maximal Coupling (10Hz)', 'Anti-Symmetric Cavity Reflection']):
     time, channel_1_data, channel_2_data, channel_1_props, channel_2_props = read_folder(scope)
@@ -125,16 +133,6 @@ for scope, title in zip([10, 8, 11, 14], ['Maximal Transmission (10Hz)', 'Maxima
         plt.title('Difference Between Calculated and Actual Signal')
         plt.savefig(str(graph_dir.joinpath('reflect_sub.png')))
         plt.close()
-
-
-
-# Scopes where we wish to just see both channels against time
-for scope, title in zip([5, 6], ['Weak (20%) Transmission', 'Maximal Transmission']):
-    time, channel_1_data, channel_2_data, channel_1_props, channel_2_props = read_folder(scope)
-    boot_plots(time, [channel_1_data, channel_2_data], ['CH1', 'CH2'], 'Time(s)')
-    plt.title(title)
-    plt.savefig(str(graph_dir.joinpath('scope_%s.png' % scope)))
-    plt.close()
 
 # Scopes to just print everything in case
 for scope, title in zip([12, 15], ['Anti-Symmetric Cavity Reflection', 'Symmetric Cavity Reflection']):
