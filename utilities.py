@@ -77,7 +77,7 @@ def read_csv(csv_path):
         return None, None, None
 
 
-def boot_plots(x, y_s, labels, y_axis_label, line_width = None, x_range = None, y_range = None, colours = None):
+def boot_plots(x, y_s, labels, y_axis_label, line_width = None, x_range = None, y_range = None, colours = None, y_axis='Volts(V)'):
     colours_all = ['green', 'red', 'black', 'blue']
     if line_width is None:
         line_width = [0.3, 0.3, 0.7, 0.3]
@@ -98,7 +98,7 @@ def boot_plots(x, y_s, labels, y_axis_label, line_width = None, x_range = None, 
     if y_range is not None:
         axes.set_ylim(y_range)
     plt.xlabel(y_axis_label)
-    plt.ylabel('Volts(V)')
+    plt.ylabel(y_axis)
     plt.grid()
 
     axes.xaxis.set_minor_locator(AutoMinorLocator())
@@ -117,16 +117,19 @@ def point_labeller(axes, type, freq, voltage):
         xy_coords = (min_freq, min_voltage)
         text = 'Minimum of %.3f V \nat %.2f MHz' % (min_voltage, min_freq)
         text_coords = (250, 200)
+        v, f = min_voltage, min_freq
     elif type == 'max':
         max_voltage, max_freq = voltage.max(), freq[np.argmax(voltage)]
         xy_coords = (max_freq, max_voltage)
         text = 'Maximum of %.2f V \nat %.2f MHz' % (max_voltage, max_freq)
         text_coords = (150, -200)
+        v, f = max_voltage, max_freq
     axes.annotate(text,
                   xy=xy_coords, xycoords='data',
                   xytext=text_coords, textcoords='offset pixels',
                   arrowprops=dict(facecolor='black', shrink=0.05, alpha=.5),
                   horizontalalignment='left', verticalalignment='bottom')
+    return v, f
 
 
 def find_nearest(array, value):
