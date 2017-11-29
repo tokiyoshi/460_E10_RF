@@ -62,7 +62,7 @@ We can then change the setup to allow for transmission. This is done according t
   \caption{Raw data of weak coupling transmission scan.}
 \label{fig:B_trans_weak_raw}
 \end{subfigure}
-\caption{overall comment}
+\caption{Transmission scopes, showing cavity transmission at different coupling conditions}
 \label{fig:B_trans_raw}
 \end{figure}
 
@@ -88,7 +88,7 @@ We then take a value which is 20\% of the maximal transmitted signal to create a
 
 We determine that the resonant frequency of the cavity is at 808.62 MHz from our more accurate graph at 2Hz, but we then see that the less accurate graph gives us a different value of resonance at 807.66 MHz, it is expected that we will have some difference as the cavity must take some period of time to achieve equilibrium, but the 10Hz value is suggested in the lab manual does not appear to be appropriate. We will state that the resonant frequency is 808 $\pm$ 2 MHz due to this difference in found resonant frequencies. We also find that the Full Width at Half Maximum (FWHM) of the signal is 1.5 $\pm$ .2 MHz, which was found through a custom script \cite{code}.
 
-From this we are able to calculate a Quality factor of 560 $\pm$ 40 which is calculated based off of the formula of $Q_\ell = \frac{Resonant Frequency}{FWHM}$. We note that the error in this calculation is quite large as the FWHM from our two scans do not agree, hence we state a large error. From this measure we are able to calculate a graph of $|\Gamma|^2$ vs frequency, which we show in Figure \ref{fig:gamma}. This is calculated through the formula, where $\omega_o$ is the angular resonance frequency and $\Delta\omega$ is the angular distance from resonance.
+From this we are able to calculate a Quality factor of 560 $\pm$ 40 which is calculated based off of the formula of $Q_\ell = \frac{\text{Resonant Frequency}}{FWHM}$. We note that the error in this calculation is quite large as the FWHM from our two scans do not agree, hence we state a large error. From this measure we are able to calculate a graph of $|\Gamma|^2$ vs frequency, which we show in Figure \ref{fig:gamma}. This is calculated through the formula, where $\omega_o$ is the angular resonance frequency and $\Delta\omega$ is the angular distance from resonance.
 
 \begin{equation}
     |\Gamma|^2 = 1\; -\; \frac{1}{1-4 Q_\ell^2 (\Delta\omega/\omega_o)^2}
@@ -110,7 +110,7 @@ From this $|\Gamma|^2$ we are able to calculate an expected or theoretical graph
   \caption{Calculated vs Actual resonance conditions to compare the quality of the fit, original data also shown in Figure \ref{fig:B_reflect_crit_10}}
 \label{fig:raw_reflect_calc}
 \end{subfigure}
-%\caption{overall comment}
+\caption{Gamma calculation and comparison graphs}
 \label{fig:gamma}
 \end{figure}
 
